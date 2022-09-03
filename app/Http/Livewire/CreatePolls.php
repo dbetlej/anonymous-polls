@@ -32,6 +32,12 @@ class CreatePolls extends Component
             $validated['published_at'] = now();
         }
 
+        if(empty($validated['name'])) {
+            $id=DB::select("SHOW TABLE STATUS LIKE 'polls'");
+            $next_id=$id[0]->Auto_increment;
+            $validated['name'] = 'Poll: ' . $next_id;
+        }
+
         Poll::create($validated + ['creator_id' => auth()->user()->id]);
 
         session()->flash('message', 'Poll successfully created.');

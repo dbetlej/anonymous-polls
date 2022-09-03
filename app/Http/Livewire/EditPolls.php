@@ -40,6 +40,10 @@ class EditPolls extends Component
             $validated['published_at'] = now();
         }
 
+        if(empty($validated['name'])) {
+            $validated['name'] = 'Poll: ' . $this->poll->id;
+        }
+
         $this->poll->update($validated);
 
         session()->flash('message', 'Poll successfully updated.');
