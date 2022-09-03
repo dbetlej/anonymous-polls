@@ -18,10 +18,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::middleware(['auth'])->group( function() {
+    Route::resource('polls', PollController::class)->except(['store', 'update', 'show']);
 
-Route::resource('polls', PollController::class);
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
+
+Route::get('polls', [PollController::class, 'index'])->name('polls.index');
+Route::get('polls/{poll:slug}', [PollController::class, 'show'])->name('polls.show')->middleware(['poll']);
 
 require __DIR__.'/auth.php';
