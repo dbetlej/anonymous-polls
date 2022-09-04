@@ -18,9 +18,7 @@ class PollController extends Controller
 
     public function show(Poll $poll)
     {
-        $poll->load('questions');
-        $poll->views++;
-        $poll->save();
+        $poll->load(['questions.answers', 'resolveds']);
 
         return view('poll.show', compact('poll'));
     }

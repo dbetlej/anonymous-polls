@@ -27,4 +27,9 @@ class Resolved extends Model
     {
         return $this->hasMany(Answer::class);
     }
+
+    public function scopeResolved($query)
+    {
+        $query->where('ended_at', '!=', null);
+    }
 }
