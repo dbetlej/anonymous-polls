@@ -18,6 +18,10 @@ class PollController extends Controller
 
     public function show(Poll $poll)
     {
+        $poll->load('questions');
+        $poll->views++;
+        $poll->save();
+
         return view('poll.show', compact('poll'));
     }
 

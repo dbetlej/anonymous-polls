@@ -15,6 +15,11 @@ class PollSeeder extends Seeder
      */
     public function run()
     {
-        Poll::factory()->count(3)->create();
+        $polls = Poll::factory()->count(3)->create();
+        foreach ($polls as $poll) {
+            $poll->questions()->factory()->count(10)->create([
+                'poll_id' => $poll->id,
+            ]);
+        }
     }
 }

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Poll extends Model
@@ -22,8 +24,13 @@ class Poll extends Model
         'views'
     ];
 
-    public function creator(): HasOne
+    public function creator(): BelongsTo
     {
-        return $this->hasOne(User::class, 'id', 'creator_id');
+        return $this->belongsTo(User::class, 'id', 'creator_id');
+    }
+
+    public function questions(): HasMany
+    {
+        return $this->hasMany(Question::class);
     }
 }

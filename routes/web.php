@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PollController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,9 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group( function() {
     Route::resource('polls', PollController::class)->except(['store', 'update', 'show']);
+    Route::get('questions/create/{poll}', [QuestionController::class, 'create'])->name('questions.create');
+    Route::get('questions/{question}/edit', [QuestionController::class, 'edit'])->name('questions.edit');
+//    Route::resource('questions', QuestionController::class)->except(['store', 'update', 'show']);
 
     Route::get('/dashboard', function () {
         return view('dashboard');
