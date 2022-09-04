@@ -33,10 +33,13 @@ Route::middleware(['auth'])->group( function() {
 });
 
 Route::get('polls', [PollController::class, 'index'])->name('polls.index');
-Route::get('resolveds/{resolved:access_key}/summary', [ResolvedController::class, 'show'])->name('resolveds.show');
-Route::post('resolveds/{resolved:access_key}', [ResolvedController::class, 'store'])->name('resolveds.store');
-Route::middleware(['poll'])->group( function() {
-    Route::get('resolveds/{poll:slug}', [ResolvedController::class, 'resolve'])->name('resolveds.resolve');
-    Route::delete('resolveds/{resolved:access_key}', [ResolvedController::class, 'store'])->name('resolveds.destroy');
+Route::prefix('resolveds')->group(function () {
+    Route::get('/{resolved:access_key}/summary', [ResolvedController::class, 'show'])->name('resolveds.show');
+    Route::post('/{resolved:access_key}', [ResolvedController::class, 'store'])->name('resolveds.store');
+    Route::delete('/{resolved:access_key}', [ResolvedController::class, 'destroy'])->name('resolveds.destroy');
+    Route::middleware(['poll'])->group( function() {
+        Route::get('/{poll:slug}', [ResolvedController::class, 'resolve'])->name('resolveds.resolve');
+    });
 });
+
 require __DIR__.'/auth.php';

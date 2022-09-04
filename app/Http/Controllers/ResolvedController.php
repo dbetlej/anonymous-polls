@@ -56,4 +56,11 @@ class ResolvedController extends Controller
 
         return view('resolved.summary', compact('resolved'));
     }
+
+    public function destroy(Resolved $resolved)
+    {
+        $resolved->delete();
+
+        return back();
+    }
 }
