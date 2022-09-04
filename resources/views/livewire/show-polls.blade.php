@@ -5,6 +5,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Slug</th>
+                <th>Resolve</th>
                 @if(auth()->check())
                     <th>Edit</th>
                     <th>Delete</th>
@@ -17,6 +18,7 @@
                     <td>{{ $poll->id }}</td>
                     <td> <a href="{{ route('polls.show', $poll->slug) }}">{{ $poll->name }}</a> </td>
                     <td> <a href="{{ route('polls.show', $poll->slug) }}">{{ $poll->slug }}</a> </td>
+                    <td> <a href="{{ route('resolveds.resolve', $poll->slug) }}" style="color: greenyellow">Resolve</a> </td>
                     @if(auth()->check() && auth()->user()->id == $poll->creator_id)
                         <td> <a href="{{ route('polls.edit', $poll->id) }}"  style="color: deepskyblue">Edit</a> </td>
                         <td>

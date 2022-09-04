@@ -33,4 +33,9 @@ class Poll extends Model
     {
         return $this->hasMany(Question::class);
     }
+
+    public function resolveds(): HasMany
+    {
+        return $this->hasMany(Resolved::class);
+    }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PollController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ResolvedController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,10 @@ Route::middleware(['auth'])->group( function() {
 });
 
 Route::get('polls', [PollController::class, 'index'])->name('polls.index');
-Route::get('polls/{poll:slug}', [PollController::class, 'show'])->name('polls.show')->middleware(['poll']);
-
+Route::get('resolveds/{resolved:access_key}/summary', [ResolvedController::class, 'show'])->name('resolveds.show');
+Route::post('resolveds/{resolved:access_key}', [ResolvedController::class, 'store'])->name('resolveds.store');
+Route::middleware(['poll'])->group( function() {
+    Route::get('polls/{poll:slug}', [PollController::class, 'show'])->name('polls.show');
+    Route::get('resolveds/{poll:slug}', [ResolvedController::class, 'resolve'])->name('resolveds.resolve');
+});
 require __DIR__.'/auth.php';

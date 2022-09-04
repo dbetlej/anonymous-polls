@@ -14,6 +14,7 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
                         {{ $poll->name }}
+                        Poll Stats
                     </div>
                 </div>
             </div>
@@ -22,7 +23,14 @@
 @endauth
 @guest
     <x-guest-layout>
-        @livewire('show-polls')
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            Poll: {{ $poll->name }}
+        </h2>
+        <h6>Views:{{ $poll->views }}  Published_at: {{ $poll->published_at }}</h6>
+        <br>
+        <a href="{{ route('polls.index') }}" style="color: deepskyblue">All polls</a>
+
+        Poll Stats
     </x-guest-layout>
 @endguest
 
